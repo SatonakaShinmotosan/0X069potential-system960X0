@@ -1,0 +1,235 @@
+#include <time.h>
+
+#define NORMAL_SPEED 1.0
+#define SLOW_SPEED 0.5
+#define FAST_SPEED 2.0
+
+float gameSpeed = NORMAL_SPEED;
+
+void findMushroom() {
+    int randomValue = rand() % 2; // Randomly choose between 0 and 1
+    if (randomValue == 0) {
+        gameSpeed = NORMAL_SPEED * 3; // Triple speed
+    } else {
+        gameSpeed = NORMAL_SPEED / 3; // One third speed
+    }
+}
+
+int main() {
+    srand(time(NULL)); // Seed for random number generation
+
+    // Simulate finding mushrooms
+    for (int i = 0; i < 10; i++) {
+        printf("Finding mushroom %d...\n", i + 1);
+        findMushroom();
+        printf("Current game speed: %.2f\n", gameSpeed);
+    }
+
+    return 0;
+} 
+#define MAX_LIVES 99
+#define MAX_POWER_UPS 10
+
+typedef struct {
+    int lives;
+    int powerUps[MAX_POWER_UPS];
+    bool hasLightsaber;
+} Character;
+
+typedef struct {
+    int difficulty;
+    Character mario;
+    Character princessPeach;
+} Game;
+
+void initializeGame(Game *game) {
+    game->difficulty = 1; // Normal difficulty
+    game->mario.lives = 3;
+    for (int i = 0; i < MAX_POWER_UPS; i++) {
+        game->mario.powerUps[i] = 0; // No power-ups
+    }
+    game->princessPeach.lives = MAX_LIVES;
+    for (int i = 0; i < MAX_POWER_UPS; i++) {
+        game->princessPeach.powerUps[i] = 1; // All power-ups
+    }
+    game->princessPeach.hasLightsaber = true; // Princess Peach has a lightsaber
+}
+
+void reachPrincess(Game *game) {
+    game->difficulty = 3; // Hardest difficulty
+    game->princessPeach.lives = MAX_LIVES; // Infinite lives
+}
+
+void displayGameStatus(Game *game) {
+    printf("Game Difficulty: %d\n", game->difficulty);
+    printf("Mario Lives: %d\n", game->mario.lives);
+    printf("Princess Peach Lives: %d\n", game->princessPeach.lives);
+    printf("Princess Peach has Lightsaber: %s\n", game->princessPeach.hasLightsaber  "Yes" );
+}
+
+int main() {
+    Game game;
+    initializeGame(&game);
+    
+    // Simulate reaching Princess Peach
+    reachPrincess(&game);
+    
+    // Display the game status
+    displayGameStatus(&game);
+    
+    return 0;
+}
+#include <stdio.h>
+
+#define MAX_LIVES 5
+
+typedef struct {
+    int lives;
+    int checkpoint;
+} GameState;
+
+void initializeGame(GameState *game) {
+    game->lives = MAX_LIVES;
+    game->checkpoint = 0; // Start from the beginning
+}
+
+void loseLife(GameState *game) {
+    if (game->lives > 0) {
+        game->lives--;
+        printf("Mario lost a life! Lives remaining: %d\n", game->lives);
+    }
+    
+    if (game->lives == 0) {
+        printf("Game Over! Returning to checkpoint...\n");
+        game->lives = MAX_LIVES; // Reset lives
+        game->checkpoint = 0; // Reset to start
+    }
+}
+
+void reachCheckpoint(GameState *game) {
+    game->checkpoint++;
+    printf("Checkpoint reached! Current checkpoint: %d\n", game->checkpoint);
+}
+
+int main() {
+    GameState game;
+    initializeGame(&game);
+
+    // Simulating the game
+    reachCheckpoint(&game); // Mario reaches a checkpoint
+    loseLife(&game);        // Mario loses a life
+    loseLife(&game);        // Mario loses another life
+    loseLife(&game);        // Mario loses another life
+    loseLife(&game);        // Mario loses another life
+    loseLife(&game);        // Mario loses the last life, game over
+
+    return 0;
+}
+typedef struct {
+    int lives;
+    int level;
+} Mario;
+
+void gameOver(Mario *mario) {
+    printf("Game Over! Mario has no lives left.\n");
+    printf("Spawning Mario in a hellish loop...\n");
+    mario->lives = MAX_LIVES; // Reset lives
+    mario->level = 1; // Reset level
+}
+
+void playGame(Mario *mario) {
+    while (mario->lives > 0) {
+        printf("Mario is playing at level %d with %d lives left.\n", mario->level, mario->lives);
+        // Simulate game logic here
+        // For demonstration, we will simulate a game over condition
+        mario->lives--; // Decrease lives for simulation
+    }
+    gameOver(mario);
+}
+
+int main() {
+    Mario mario = {MAX_LIVES, 1};
+    playGame(&mario);
+    return 0;
+} typedef struct {
+    float speed;
+    int loopCount;
+} GameState;
+
+void initializeGame(GameState *game) {
+    game->speed = 1.0f;
+    game->loopCount = 0;
+}
+
+void playGameLoop(GameState *game) {
+    game->loopCount++;
+    printf("Playing Mario Brothers 64 - Loop: %d, Player Speed: %.2f\n", game->loopCount, game->speed);
+    
+    if (game->loopCount == 2) {
+        playGameLoop(game);
+    } else if (game->loopCount == 3) {
+        game->speed /= 3;
+        playGameLoop(game);
+    }
+}
+
+int main() {
+    GameState game;
+    initializeGame(&game);
+    playGameLoop(&game);
+    return 0;
+} #define LOOPS 3
+
+void* play_loop(void* arg) {
+    int loop_number = *((int*)arg);
+    for (int i = 0; i < 5; i++) {
+        printf("Playing loop %d: Frame %d\n", loop_number, i);
+        usleep(500000); // Simulate frame delay
+    }
+    return NULL;
+}
+
+int main() {
+    pthread_t threads[LOOPS];
+    int loop_numbers[LOOPS];
+
+    for (int i = 0; i < LOOPS; i++) {
+        loop_numbers[i] = i + 1;
+        pthread_create(&threads[i], NULL, play_loop, &loop_numbers[i]);
+    }
+
+    for (int i = 0; i < LOOPS; i++) {
+        pthread_join(threads[i], NULL);
+    }
+
+    printf("All loops completed.\n");
+    return 0;
+} void displayPrincessPeach() {
+    printf("Displaying Princess Peach on the screen...\n");
+}
+
+void playBarbieWorldSong() {
+    printf("Playing Barbie World song...\n");
+}
+
+void cutScreenInHalf() {
+    printf("Cutting the screen in half with a blue lightsaber...\n");
+}
+
+void gamingThreadLoop() {
+    for (int i = 0; i < 3; i++) {
+        printf("Gaming thread loop %d occurring...\n", i + 1);
+        sleep(1); // Simulating delay for each loop
+    }
+}
+
+int main() {
+    while (1) {
+        gamingThreadLoop();
+        displayPrincessPeach();
+        cutScreenInHalf();
+        playBarbieWorldSong();
+        printf("Restarting the entire script...\n");
+    }
+    return 0;
+}

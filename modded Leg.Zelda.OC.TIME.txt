@@ -1,0 +1,279 @@
+#include <time.h>
+
+#define MAX_DIFFICULTY 10
+#define MIN_DIFFICULTY 1
+
+typedef struct {
+    int difficulty;
+} Game;
+
+void useOcarina(Game *game) {
+    int change = rand() % 3 - 1; // Change difficulty by -1, 0, or +1
+    game->difficulty += change;
+
+    if (game->difficulty > MAX_DIFFICULTY) {
+        game->difficulty = MAX_DIFFICULTY;
+    } else if (game->difficulty < MIN_DIFFICULTY) {
+        game->difficulty = MIN_DIFFICULTY;
+    }
+
+    printf("Ocarina used! Current difficulty: %d\n", game->difficulty);
+}
+
+int main() {
+    srand(time(NULL));
+    Game game = {5}; // Starting difficulty
+
+    char command;
+    printf("Press 'o' to use the Ocarina of Time, 'q' to quit:\n");
+
+    while (1) {
+        scanf(" %c", &command);
+        if (command == 'o') {
+            useOcarina(&game);
+        } else if (command == 'q') {
+            break;
+        } else {
+            printf("Invalid command. Press 'o' to use the Ocarina or 'q' to quit.\n");
+        }
+    }
+
+    return 0;
+}
+#include <stdio.h>
+
+int main() {
+    // Simulating the start of the Legend of Zelda: Ocarina of Time
+    printf("Starting Legend of Zelda: Ocarina of Time...\n");
+    
+    // Set game difficulty
+    int gameDifficulty = 5;
+    printf("Game Difficulty set to: %d\n", gameDifficulty);
+    
+    // Game start logic
+    printf("Welcome to Hyrule, brave hero!\n");
+    printf("Your adventure begins now...\n");
+
+    return 0;
+}
+typedef struct {
+    float speed;
+    int difficulty;
+} Player;
+
+void increaseDifficulty(Player *player) {
+    player->difficulty++;
+    player->speed -= 0.5; // Decrease speed as difficulty increases
+}
+
+void displayStatus(Player player) {
+    printf("Current Difficulty: %d\n", player.difficulty);
+    printf("Player Speed: %.2f\n", player.speed);
+}
+
+int main() {
+    Player link = {10.0, 1}; // Initial speed and difficulty
+
+    for (int i = 0; i < 5; i++) {
+        increaseDifficulty(&link);
+        displayStatus(link);
+    }
+
+    return 0;
+} 
+#include <time.h>
+
+#define MAX_ENEMIES 10
+#define DUNGEON_COUNT 9
+
+typedef struct {
+    int enemyID;
+    int difficulty;
+} Enemy;
+
+void spawnEnemies(int dungeon, int gameDifficulty, int gameSpeed) {
+    Enemy enemies[MAX_ENEMIES];
+    int spawnCount = (gameDifficulty + gameSpeed) / 2 * 3; // Triple spawn based on difficulty and speed
+
+    printf("Dungeon %d: Spawning %d enemies\n", dungeon, spawnCount);
+    for (int i = 0; i < spawnCount; i++) {
+        enemies[i].enemyID = rand() % 100; // Random enemy ID
+        enemies[i].difficulty = gameDifficulty;
+        printf("Spawned Enemy ID: %d with Difficulty: %d\n", enemies[i].enemyID, enemies[i].difficulty);
+    }
+}
+
+int main() {
+    srand(time(NULL));
+    int gameDifficulty = 5; // Example difficulty level
+    int gameSpeed = 3; // Example game speed
+
+    for (int dungeon = 1; dungeon <= DUNGEON_COUNT; dungeon++) {
+        spawnEnemies(dungeon, gameDifficulty, gameSpeed);
+    }
+
+    return 0;
+}
+#include <time.h>
+
+#define MAX_BOSSES 3
+
+typedef struct {
+    char *name;
+    int difficulty;
+} Boss;
+
+void spawn_bosses(Boss bosses[], int num_bosses, int game_difficulty, int player_speed) {
+    int spawn_count = (game_difficulty + player_speed) / 2; // Simple formula for spawn count
+    if (spawn_count > MAX_BOSSES) {
+        spawn_count = MAX_BOSSES;
+    }
+
+    printf("Spawning %d bosses:\n", spawn_count);
+    for (int i = 0; i < spawn_count; i++) {
+        int boss_index = rand() % num_bosses;
+        printf("Boss spawned: %s\n", bosses[boss_index].name);
+    }
+}
+
+int main() {
+    srand(time(NULL));
+
+    Boss bosses[] = {
+        {"Ganon", 5},
+        {"Dark Link", 4},
+        {"Morpheel", 3}
+    };
+
+    int game_difficulty = 6; // Example difficulty level
+    int player_speed = 4;    // Example player speed
+
+    spawn_bosses(bosses, sizeof(bosses) / sizeof(bosses[0]), game_difficulty, player_speed);
+
+    return 0;
+} void gameLoop() {
+    // Simulate Link's auto spawn and the Ocarina of Time
+    printf("Link has spawned with the Ocarina of Time!\n");
+    
+    // Game loop
+    while (true) {
+        // Game logic goes here
+        // For demonstration, we will just print a message
+        printf("Game is running...\n");
+        
+        // Simulate a condition to break the loop (for demonstration)
+        char input;
+        printf("Press 'q' to quit or any other key to continue: ");
+        input = getchar();
+        getchar(); // To consume the newline character
+        
+        if (input == 'q') {
+            printf("Exiting game...\n");
+            break;
+        }
+    }
+}
+
+int main() {
+    while (true) {
+        gameLoop();
+        // Optionally, reset game state here if needed
+        printf("Restarting the game...\n");
+    }
+    return 0;
+} #define PLAYER_LOOP_SPEED 60 // Example speed in frames per second
+
+void game_start();
+void search_loop();
+
+int main() {
+    game_start();
+    return 0;
+}
+
+void game_start() {
+    printf("Game Starting...\n");
+    search_loop();
+}
+
+void search_loop() {
+    bool game_running = true;
+    while (game_running) {
+        // Simulate player actions and game logic
+        printf("Player is moving...\n");
+        
+        // Placeholder for game logic
+        // Update game state, check for events, etc.
+
+        // Simulate frame delay based on player loop speed
+        for (int i = 0; i < PLAYER_LOOP_SPEED; i++) {
+            // Simulate frame processing
+        }
+
+        // Condition to exit the loop (for demonstration purposes)
+        // In a real game, this would be based on game events
+        game_running = false; // Change this condition as needed
+    }
+} void game_start() {
+    // Initialize game settings
+    printf("Game Start: Initializing settings...\n");
+    // Game settings code here
+}
+
+void meet_princess_zelda() {
+    // Code for meeting Princess Zelda
+    printf("Meeting Princess Zelda...\n");
+    // Game logic for this event
+}
+
+void double_loop() {
+    for (int loop = 0; loop < 2; loop++) {
+        printf("Starting loop %d...\n", loop + 1);
+        game_start();
+        meet_princess_zelda();
+        // Double every game scripting setting
+        // Code to double settings here
+    }
+}
+
+int main() {
+    double_loop();
+    return 0;
+} typedef struct {
+    int x;
+    int y;
+    int hasOcarina;
+} Link;
+
+void spawnLink(Link *link) {
+    link->x = 0;
+    link->y = 0;
+    link->hasOcarina = 1;
+    printf("Link has spawned at (%d, %d) with the Ocarina of Time.\n", link->x, link->y);
+}
+
+void meetZelda() {
+    printf("Link meets Princess Zelda.\n");
+}
+
+void glitchOcarina() {
+    printf("The Ocarina of Time is glitching and getting bigger!\n");
+}
+
+void searchLoop() {
+    printf("Starting search loop...\n");
+}
+
+int main() {
+    Link link;
+    spawnLink(&link);
+    
+    // Simulate game events
+    meetZelda();
+    glitchOcarina();
+    
+    // Restart the game
+    searchLoop();
+    
+    return 0;
+}
